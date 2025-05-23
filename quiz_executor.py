@@ -6,7 +6,18 @@ from colorama import Fore
 
 class QuizExecutor:
     def __init__(self):
-        self.run()
+        quiz_file = "quiz_text"
+        if os.path.exists(quiz_file):
+            questions = self.read_txt_file(quiz_file)
+            if questions:
+                self.execute_quiz(questions)
+
+            else:
+                print(Fore.RED + "No questions found in file.")
+
+        else:
+            print(Fore.RED + f"Quiz file {quiz_file} not found.")
+
 
     def read_txt_file(self, quiz_text):
         with open(quiz_text, "r") as collected_file:
