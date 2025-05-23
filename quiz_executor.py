@@ -6,6 +6,29 @@ from colorama import Fore
 
 class QuizExecutor:
     def __init__(self):
+        self.run()
+
+    def read_txt_file(self, quiz_text):
+        with open("quiz_txt", "r") as collected_file:
+            file_txt = collected_file.read().strip()
+
+        solo_quests = file_txt.split("\n\n")
+        question_list = []
+
+        for solo_quest in solo_quests:
+            lines = solo_quest.strip().split("\n")
+            if len(lines) >= 6:
+                quest_part = lines[0]
+                choices_part = lines[1:5]
+                answer_part = lines[5]
+                answer_key = answer_part.split(":")[-1].strip()
+                question_list.append({
+                    "question": quest_part,
+                    "choices": choices_part,
+                    "answer": answer_key
+                })
+
+        return question_list
 
     def execute_quiz(self, question_list): # Print the questions randomly then let the user answer every rambled question
         score = 0
