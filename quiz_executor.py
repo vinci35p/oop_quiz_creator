@@ -4,23 +4,19 @@ import random
 import os
 from colorama import Fore
 
+# Class to execute the quiz from the collected quiz file
 class QuizExecutor:
-    def __init__(self):
-        quiz_file = "quiz_text"
-        if os.path.exists(quiz_file):
-            questions = self.read_txt_file(quiz_file)
-            if questions:
-                self.execute_quiz(questions)
-
-            else:
-                print(Fore.RED + "No questions found in file.")
-
-        else:
-            print(Fore.RED + f"Quiz file {quiz_file} not found.")
+    def __init__(self, filename="quiz_text"):
+        self.filename = filename
+        self.questions = self.read_txt_file()
 
 
-    def read_txt_file(self, quiz_text):
-        with open(quiz_text, "r") as collected_file:
+    def read_txt_file(self):
+        if not os.path.exists(self.filename):
+            print(Fore.RED + f"Quiz file '{self.filename}' not found.")
+            return []
+
+        with open(self.filename, "r") as collected_file:
             file_txt = collected_file.read().strip()
 
         solo_quests = file_txt.split("\n\n")
@@ -41,10 +37,15 @@ class QuizExecutor:
 
         return question_list
 
-    def execute_quiz(self, question_list): # Print the questions randomly then let the user answer every rambled question
+    # Print the questions randomly then let the user answer every rambled question
+    def execute_quiz(self, question_list):
+        if not self.questions:
+            print(Fore.RED + "No questions available. Please create some first.")
+            return
+
         score = 0
-        total = len(question_list)
-        quiz = random.sample(question_list, total)
+        total = len(self.questions)
+        quiz = random.sample(self.questions, total)
 
         for num, question in enumerate(quiz, 1):
             print(f"\n{question['question']}")
@@ -58,7 +59,7 @@ class QuizExecutor:
                 else:
                     print("Invalid input. Please enter a viable answer (A, B, C, or D).")
 
-            if user_ans == question_list["answer"]:
+            if user_ans == question["answer"]:
                 self.loading_animation_right_answer()
                 score += 1
 
@@ -67,12 +68,12 @@ class QuizExecutor:
 
         print(Fore.LIGHTYELLOW_EX + f"\nYou got {score} out of {total}.\n")
 
-    def delete_quiz_file(self, quiz_txt):
+    def delete_quiz_file(self):
         try:
-            os.remove(quiz_txt)
-            print(f"\nQuiz file '{quiz_txt}' has been deleted.\n")
+            os.remove(self.filename)
+            print(f"\nQuiz file '{self.filename}' has been deleted.\n")
         except FileNotFoundError:
-            print(f"\nQuiz file '{quiz_txt}' not found, there's nothing to delete.\n")
+            print(f"\nQuiz file '{self.filename}' not found, there's nothing to delete.\n")
 
     def loading_animation_right_answer(self):
         print(Fore.LIGHTRED_EX + "Hmmm", end='')

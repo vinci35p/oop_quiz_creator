@@ -2,6 +2,7 @@ import sys
 import time
 from colorama import Fore
 
+# Class to compile the quiz from user
 class QuizCompiler:
     def __init__(self, filename="quiz_text", datafile="collected_data.txt"):
         self.filename = filename
