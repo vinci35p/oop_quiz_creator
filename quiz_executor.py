@@ -9,7 +9,7 @@ class QuizExecutor:
         self.run()
 
     def read_txt_file(self, quiz_text):
-        with open("quiz_txt", "r") as collected_file:
+        with open(quiz_text, "r") as collected_file:
             file_txt = collected_file.read().strip()
 
         solo_quests = file_txt.split("\n\n")
@@ -35,9 +35,9 @@ class QuizExecutor:
         total = len(question_list)
         quiz = random.sample(question_list, total)
 
-        for num, question_list in enumerate(quiz, 1):
-            print(f"\n{question_list['question']}")
-            for choice in question_list['choices']:
+        for num, question in enumerate(quiz, 1):
+            print(f"\n{question['question']}")
+            for choice in question['choices']:
                 print(choice)
 
             while True:
@@ -78,5 +78,5 @@ class QuizExecutor:
             sys.stdout.write(Fore.RED + ".")
             sys.stdout.flush()
             time.sleep(0.75)
-        print(Fore.YELLOW + "\nYou didn't got it... Keep it up!")
+        print(Fore.YELLOW + "\nYou didn't get it... Keep it up!")
         print()
