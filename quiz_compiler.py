@@ -77,7 +77,6 @@ class QuizCompiler:
 
             elif choice == '7':
                 print(Fore.MAGENTA + "Exiting, have a nice day!\n")
-                self.file.close()
                 break
 
 
