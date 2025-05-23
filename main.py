@@ -68,3 +68,6 @@ class MainQuizTaker:
                         break
 
 # __QUIZ_GENERATOR__
+if __name__ == "__main__":
+    function = MainQuizTaker()
+    function.start()
