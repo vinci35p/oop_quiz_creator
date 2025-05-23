@@ -3,15 +3,16 @@ import time
 from colorama import Fore
 
 class QuizCompiler:
-    def __init__(self):
-        self.file = open("quiz_text", "a") # appends the txt file
+    def __init__(self, filename="quiz_text", datafile="collected_data.txt"):
+        self.filename = filename
+        self.datafile = datafile
         self.question_num = self.starting_num() + 1
-        self.run()
+        self.file = open(self.filename, "a")
 
     # Numbering of questions
     def starting_num(self):
         try:
-            with open("collected_data.txt", "r") as collected_data_file:
+            with open(self.datafile, "r") as collected_data_file:
                 lines = collected_data_file.readlines()
                 return sum(1 for line in lines if line.startswith("Question: " or line[0].isdigit()))
         except FileNotFoundError:
@@ -19,9 +20,7 @@ class QuizCompiler:
 
     # Input question
     def question(self):
-        user_question = str(input(Fore.CYAN + "\nEnter your preferred question: "))
-
-        return user_question
+        return input(Fore.CYAN + "\nEnter your preferred question: ")
 
     # Input choices
     def quest_choices(self):
