@@ -8,3 +8,9 @@ class MainQuizTaker:
         self.filename = filename
         self.compiler = QuizCompiler(filename)
         self.executor = QuizExecutor(filename)
+
+# Function to delete the quiz file
+
+# Function that let users choose to add or create new set of questions
+
+# __QUIZ_GENERATOR__
