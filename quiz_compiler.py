@@ -8,7 +8,6 @@ class QuizCompiler:
         self.filename = filename
         self.datafile = datafile
         self.question_num = self.starting_num() + 1
-        self.file = open(self.filename, "a")
 
     # Numbering of questions
     def starting_num(self):
@@ -68,10 +67,11 @@ class QuizCompiler:
 
                 self.loading_animation()
 
-                self.file.write(f"{self.question_num}. Question: {questions}\n")
-                for letter in ['A', 'B', 'C', 'D']:
-                    self.file.write(f"{letter}. {choices[letter]}\n")
-                self.file.write(f"Correct Answer: {answers}\n\n")
+                with open(self.filename, "a") as file:
+                    file.write(f"{self.question_num}. Question: {questions}\n")
+                    for letter in ['A', 'B', 'C', 'D']:
+                        file.write(f"{letter}. {choices[letter]}\n")
+                    file.write(f"Correct Answer: {answers}\n\n")
 
                 self.question_num += 1
 
