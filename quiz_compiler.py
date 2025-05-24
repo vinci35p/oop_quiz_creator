@@ -14,7 +14,7 @@ class QuizCompiler:
         try:
             with open(self.datafile, "r") as collected_data_file:
                 lines = collected_data_file.readlines()
-                return sum(1 for line in lines if line.startswith("Question: " or line[0].isdigit()))
+                return sum(1 for line in lines if line.startswith("Question: ") or line[0].isdigit())
         except FileNotFoundError:
             return 0
 

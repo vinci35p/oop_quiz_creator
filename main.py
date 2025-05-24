@@ -1,3 +1,4 @@
+import os
 from quiz_compiler import QuizCompiler
 from quiz_executor import QuizExecutor
 from colorama import Fore
@@ -11,7 +12,6 @@ class MainQuizTaker:
 
 # Function to delete the quiz file
     def delete_quiz_file(self):
-        import os
         try:
             os.remove(self.filename)
             print(Fore.GREEN + f"Deleted existing quiz file '{self.filename}'.")
